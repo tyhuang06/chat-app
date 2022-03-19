@@ -1,11 +1,23 @@
 import express from 'express';
+import cors from 'cors';
 import { chats } from './data.js';
 import 'dotenv/config';
+import connectDB from './config/db.js';
 
 const PORT = process.env.PORT || 8000;
 
+connectDB();
 const app = express();
 
+// Set up cors
+app.use(
+	cors({
+		origin: process.env.CLIENT_URL,
+		credentials: true,
+	})
+);
+
+// routes
 app.get('/', (req, res) => {
 	res.send('running');
 });
