@@ -4,6 +4,7 @@ import { chats } from './data.js';
 import 'dotenv/config';
 import connectDB from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
+import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 const PORT = process.env.PORT || 8000;
 
@@ -20,7 +21,12 @@ app.use(
 
 app.use(express.json()); // to accept json data
 
+// routes
 app.use('/user', userRoutes);
+
+// error messages
+app.use(notFound);
+app.use(errorHandler);
 
 app.get('/', (req, res) => {
 	res.send('running');
