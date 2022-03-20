@@ -5,6 +5,7 @@ import 'dotenv/config';
 import connectDB from './config/db.js';
 import userRoutes from './routes/userRoutes.js';
 import chatRoutes from './routes/chatRoutes.js';
+import messageRoutes from './routes/messageRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 
 const PORT = process.env.PORT || 8000;
@@ -25,6 +26,7 @@ app.use(express.json()); // to accept json data
 // routes
 app.use('/user', userRoutes);
 app.use('/chat', chatRoutes);
+app.use('/message', messageRoutes);
 
 // error messages
 app.use(notFound);
