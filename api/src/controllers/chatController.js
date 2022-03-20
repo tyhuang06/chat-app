@@ -134,7 +134,7 @@ const addToGroup = asyncHandler(async (req, res) => {
 		const added = await Chat.findByIdAndUpdate(
 			chatId,
 			{
-				$push: { users: userId },
+				$addToSet: { users: userId },
 			},
 			{ new: true }
 		)
