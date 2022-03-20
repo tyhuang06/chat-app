@@ -1,24 +1,20 @@
 import { useEffect, useState } from 'react';
 import axiosDefault from '../axios';
+import SideDrawer from '../components/SideDrawer';
+import MyChats from '../components/MyChats';
+import ChatBox from '../components/ChatBox';
+import { ChatState } from '../context/ChatProvider';
 
 const ChatPage = () => {
-	const [chats, setChats] = useState([]);
-
-	/* const fetchChats = async () => {
-		const { data } = await axiosDefault.get('/chat');
-		setChats(data);
-	};
-
-	useEffect(() => {
-		fetchChats();
-	}, []); */
+	const { user } = ChatState();
 
 	return (
-		<div>
-			chat page
-			{/* {chats.map((chat) => (
-				<div key={chat._id}>{chat.chatName}</div>
-			))} */}
+		<div className="w-full flex flex-col">
+			<div>{user && <SideDrawer />}</div>
+			<div className="flex justify-between m-3 h-full">
+				{user && <MyChats />}
+				{user && <ChatBox />}
+			</div>
 		</div>
 	);
 };

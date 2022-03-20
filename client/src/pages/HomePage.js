@@ -7,11 +7,22 @@ import {
 	Container,
 	Text,
 } from '@chakra-ui/react';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Login from '../components/auth/Login';
 import Signup from '../components/auth/Signup';
 
 const HomePage = () => {
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		const userInfo = JSON.parse(localStorage.getItem('userInfo'));
+
+		if (userInfo) {
+			navigate('/');
+		}
+	}, [navigate]);
+
 	return (
 		<Container maxW="xl" className="flex flex-col items-center">
 			<div className="flex bg-white w-full justify-center p-3 rounded-md h-fit mt-10 mb-5">
