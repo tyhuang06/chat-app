@@ -7,7 +7,7 @@ import { ChatState } from '../context/ChatProvider';
 import ChatLoading from './ChatLoading';
 import GroupChatModal from './modals/GroupChatModal';
 
-const MyChats = () => {
+const MyChats = ({ fetchAgain }) => {
 	const { user, selectedChat, setSelectedChat, chats, setChats } =
 		ChatState();
 
@@ -40,13 +40,13 @@ const MyChats = () => {
 	useEffect(() => {
 		setLoggedUser(JSON.parse(localStorage.getItem('userInfo')));
 		fetchChats();
-	}, []);
+	}, [fetchAgain]);
 
 	return (
 		<div
 			className={
-				'bg-white flex-col w-full md:w-1/3 rounded-lg py-3  md:flex ' +
-				(selectedChat ? 'hidden' : 'flex')
+				'bg-white flex-col w-full md:w-1/3 rounded-lg py-3 md:flex md:mr-4 ' +
+				(selectedChat ? 'hidden' : 'flex mr-3')
 			}
 		>
 			<div className="flex w-full items-center justify-between text-2xl px-5 mb-2">
