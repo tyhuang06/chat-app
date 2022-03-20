@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export const getSender = (loggedUser, users) => {
 	return users[0]._id === loggedUser._id ? users[1].name : users[0].name;
 };
@@ -42,4 +44,13 @@ export const isSameSenderMargin = (messages, m, i, userId) => {
 
 export const isSameUser = (messages, m, i) => {
 	return i > 0 && messages[i - 1].sender._id === m.sender._id;
+};
+
+export const isNewDay = (messages, m, i) => {
+	return (
+		i === 0 ||
+		(i < messages.length - 1 &&
+			moment(m.createdAt).format('MMMM Do YYYY') !==
+				moment(messages[i + 1].createdAt).format('MMMM Do YYYY'))
+	);
 };

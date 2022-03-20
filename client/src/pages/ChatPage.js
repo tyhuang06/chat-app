@@ -10,9 +10,9 @@ const ChatPage = () => {
 	const [fetchAgain, setFetchAgain] = useState(false);
 
 	return (
-		<div className="w-full flex flex-col">
+		<div className="w-full flex flex-col max-h-screen">
 			<div>{user && <SideDrawer />}</div>
-			<div className="flex justify-between m-3 h-full">
+			<div className="flex justify-between m-3 h-screen overflow-hidden">
 				{user && <MyChats fetchAgain={fetchAgain} />}
 				{user && (
 					<ChatBox
