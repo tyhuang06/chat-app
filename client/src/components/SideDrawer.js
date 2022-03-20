@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	Avatar,
 	Button,
@@ -28,7 +28,7 @@ import {
 } from '@heroicons/react/outline';
 import { BellIcon } from '@heroicons/react/solid';
 import { ChatState } from '../context/ChatProvider';
-import ProfileModal from './ProfileModal';
+import ProfileModal from './modals/ProfileModal';
 import { useNavigate } from 'react-router-dom';
 import axiosDefault from '../axios';
 import ChatLoading from './ChatLoading';
@@ -51,17 +51,8 @@ const SideDrawer = () => {
 		navigate('/');
 	};
 
-	const handleSearch = async () => {
-		if (!search) {
-			toast({
-				title: 'Please enter something in search',
-				status: 'warning',
-				duration: 5000,
-				isClosable: true,
-				position: 'top-left',
-			});
-			return;
-		}
+	const handleSearch = async (query) => {
+		setSearch(query);
 
 		try {
 			setLoading(true);
@@ -128,6 +119,10 @@ const SideDrawer = () => {
 		}
 	};
 
+	useEffect(() => {
+		handleSearch();
+	}, []);
+
 	return (
 		<div className="flex justify-between items-center bg-white w-full px-2 py-1 border-4">
 			<Tooltip
@@ -181,12 +176,11 @@ const SideDrawer = () => {
 						<div className="flex mb-2">
 							<Input
 								placeholder="Search by name or email"
-								value={search}
-								onChange={(e) => setSearch(e.target.value)}
+								onChange={(e) => handleSearch(e.target.value)}
 							/>
-							<Button onClick={handleSearch} className="ml-2">
+							{/* 							<Button onClick={handleSearch} className="ml-2">
 								Go
-							</Button>
+							</Button> */}
 						</div>
 						{loading ? (
 							<ChatLoading />

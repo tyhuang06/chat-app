@@ -5,6 +5,7 @@ import axiosDefault from '../axios';
 import { getSender } from '../config/ChatLogic';
 import { ChatState } from '../context/ChatProvider';
 import ChatLoading from './ChatLoading';
+import GroupChatModal from './modals/GroupChatModal';
 
 const MyChats = () => {
 	const { user, selectedChat, setSelectedChat, chats, setChats } =
@@ -50,11 +51,16 @@ const MyChats = () => {
 		>
 			<div className="flex w-full items-center justify-between text-2xl px-5 mb-2">
 				My Chats
-				<Button d="flex" rightIcon={<PlusIcon className="w-4 h-4" />}>
-					New Group
-				</Button>
+				<GroupChatModal>
+					<Button
+						d="flex"
+						rightIcon={<PlusIcon className="w-4 h-4" />}
+					>
+						New Group
+					</Button>
+				</GroupChatModal>
 			</div>
-			<div className="flex flex-col bg-gray-50 rounded-lg p-3 mx-2 overflow-hidden">
+			<div className="flex flex-col bg-slate-100 rounded-lg p-3 mx-2 overflow-hidden">
 				{chats ? (
 					<Stack overflowY="auto">
 						{chats.map((chat) => (
@@ -64,7 +70,7 @@ const MyChats = () => {
 									'flex px-3 py-2 rounded-lg cursor-pointer hover:bg-teal-400 ' +
 									(selectedChat === chat
 										? 'bg-teal-500 text-white'
-										: 'bg-gray-200 text-black')
+										: 'bg-slate-200 text-black')
 								}
 								onClick={() => setSelectedChat(chat)}
 							>

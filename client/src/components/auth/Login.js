@@ -100,9 +100,9 @@ const Login = () => {
 							onClick={handleClick}
 						>
 							{show ? (
-								<EyeOffIcon className="w-5 h-5 text-gray-700" />
+								<EyeOffIcon className="w-5 h-5 text-slate-700" />
 							) : (
-								<EyeIcon className="w-5 h-5 text-gray-700" />
+								<EyeIcon className="w-5 h-5 text-slate-700" />
 							)}
 						</button>
 					</InputRightElement>

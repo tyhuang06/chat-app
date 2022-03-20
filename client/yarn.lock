@@ -9585,7 +9585,7 @@ workbox-range-requests@6.5.1:
 workbox-recipes@6.5.1:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/workbox-recipes/-/workbox-recipes-6.5.1.tgz#d2fb21743677cc3ca9e1fc9e3b68f0d1587df205"
-  integrity sha512-DGsyKygHggcGPQpWafC/Nmbm1Ny3sB2vE9r//3UbeidXiQ+pLF14KEG1/0NNGRaY+lfOXOagq6d1H7SC8KA+rA==
+  integrity sha512-DGsyKygHggcGPQpWafC/Nmbm1Ny3sB2vE9r//3UbeidXiQ+pLF14KEG1/0NNslate+lfOXOagq6d1H7SC8KA+rA==
   dependencies:
     workbox-cacheable-response "6.5.1"
     workbox-core "6.5.1"
