@@ -6,7 +6,10 @@
 	"license": "MIT",
 	"type": "module",
 	"scripts": {
-		"start": "nodemon src/server.js"
+		"start": "nodemon src/server.js",
+		"install-client": "cd ../client && yarn install",
+		"build-client": "cd ../client && yarn build",
+		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn install-client && yarn build-client"
 	},
 	"dependencies": {
 		"bcryptjs": "^2.4.3",
