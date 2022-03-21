@@ -49,8 +49,8 @@ export const isSameUser = (messages, m, i) => {
 export const isNewDay = (messages, m, i) => {
 	return (
 		i === 0 ||
-		(i < messages.length - 1 &&
+		(i > 0 &&
 			moment(m.createdAt).format('MMMM Do YYYY') !==
-				moment(messages[i + 1].createdAt).format('MMMM Do YYYY'))
+				moment(messages[i - 1].createdAt).format('MMMM Do YYYY'))
 	);
 };

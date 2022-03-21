@@ -22,20 +22,30 @@ import {
 	Spinner,
 } from '@chakra-ui/react';
 import {
+	BellIcon,
 	ChevronDownIcon,
 	LogoutIcon,
 	SearchIcon,
 } from '@heroicons/react/outline';
-import { BellIcon } from '@heroicons/react/solid';
 import { ChatState } from '../context/ChatProvider';
 import ProfileModal from './modals/ProfileModal';
 import { useNavigate } from 'react-router-dom';
 import axiosDefault from '../axios';
 import ChatLoading from './ChatLoading';
 import UserListItem from './user/UserListItem';
+import { getSender, getSenderFull } from '../config/ChatLogic';
+import NotificationBadge from 'react-notification-badge';
+import { Effect } from 'react-notification-badge';
 
 const SideDrawer = () => {
-	const { user, setSelectedChat, chats, setChats } = ChatState();
+	const {
+		user,
+		setSelectedChat,
+		chats,
+		setChats,
+		notification,
+		setNotification,
+	} = ChatState();
 
 	const [search, setSearch] = useState('');
 	const [searchResult, setSearchResult] = useState([]);
@@ -138,9 +148,72 @@ const SideDrawer = () => {
 			<Text className="text-2xl">Chat App</Text>
 			<div className="flex">
 				<Menu>
-					<MenuButton>
-						<BellIcon className="w-5 h-5" />
+					<MenuButton className="mr-4">
+						<NotificationBadge
+							count={notification.length}
+							effect={Effect.SCALE}
+						/>
+						<BellIcon className="w-5 h-5 m-2" />
 					</MenuButton>
+					<MenuList>
+						{!notification.length && (
+							<div className="px-2">No New Messages</div>
+						)}
+						{notification.map((notif) => (
+							<MenuItem
+								key={notif._id}
+								className="px-2"
+								onClick={() => {
+									setSelectedChat(notif.chat);
+									setNotification(
+										notification.filter((n) => n !== notif)
+									);
+								}}
+							>
+								<div className="flex items-center">
+									<Avatar
+										size="sm"
+										className="cursor-pointer"
+										name={notif.chat.chatName}
+										src={
+											notif.chat.isGroupChat
+												? {}
+												: getSenderFull(
+														user,
+														notif.chat.users
+												  ).pic
+										}
+									/>
+									<div className="flex flex-col ml-2 leading-tight">
+										<div className="font-bold">
+											{notif.chat.isGroupChat
+												? notif.chat.chatName
+												: getSender(
+														user,
+														notif.chat.users
+												  )}
+										</div>
+										<div>New Message</div>
+									</div>
+								</div>
+								{/* {notif.chat.isGroupChat ? (
+									<div>
+										<Avatar
+											size="sm"
+											className="cursor-pointer"
+											name={notif.chat.chatName}
+										/>
+										New Message in ${notif.chat.chatName}
+									</div>
+								) : (
+									<div>
+										New Message from $
+										{getSender(user, notif.chat.users)}
+									</div>
+								)} */}
+							</MenuItem>
+						))}
+					</MenuList>
 				</Menu>
 				<Menu>
 					<MenuButton

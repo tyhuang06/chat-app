@@ -19,11 +19,19 @@ const ScrollableChat = ({ messages }) => {
 				messages.map((m, i) => (
 					<>
 						{isNewDay(messages, m, i) && (
-							<div className="flex justify-center mx-auto bg-slate-200 w-fit px-2 rounded-md">
+							<div className="flex justify-center mx-auto mt-5 mb-2 bg-slate-200 w-fit px-2 rounded-md">
 								{moment(m.createdAt).format('ll')}
 							</div>
 						)}
-						<div key={m._id} className="flex items-center">
+						<div
+							key={m._id}
+							className="flex items-center"
+							style={{
+								marginTop: isSameUser(messages, m, i, user._id)
+									? 3
+									: 10,
+							}}
+						>
 							{(isSameSender(messages, m, i, user._id) ||
 								isLastMessage(messages, i, user._id)) && (
 								<Tooltip
@@ -54,14 +62,7 @@ const ScrollableChat = ({ messages }) => {
 										i,
 										user._id
 									),
-									marginTop: isSameUser(
-										messages,
-										m,
-										i,
-										user._id
-									)
-										? 3
-										: 10,
+									marginTop: 0,
 								}}
 							>
 								<div
