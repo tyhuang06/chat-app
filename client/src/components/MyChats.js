@@ -1,8 +1,8 @@
-import { Button, Stack, Text, useToast } from '@chakra-ui/react';
+import { Avatar, Button, Stack, Text, useToast } from '@chakra-ui/react';
 import { PlusIcon } from '@heroicons/react/outline';
 import React, { useEffect, useState } from 'react';
 import axiosDefault from '../axios';
-import { getSender } from '../config/ChatLogic';
+import { getSender, getSenderFull } from '../config/ChatLogic';
 import { ChatState } from '../context/ChatProvider';
 import ChatLoading from './ChatLoading';
 import GroupChatModal from './modals/GroupChatModal';
@@ -48,7 +48,7 @@ const MyChats = ({ fetchAgain }) => {
 		<div
 			className={
 				'bg-white flex-col w-full md:w-1/3 rounded-lg py-3 md:flex md:mr-4 ' +
-				(selectedChat ? 'hidden' : 'flex mr-3')
+				(selectedChat ? 'hidden' : 'flex')
 			}
 		>
 			<div className="flex flex-wrap items-center justify-between text-2xl ml-3 mr-2 mb-2">
@@ -70,31 +70,45 @@ const MyChats = ({ fetchAgain }) => {
 							<div
 								key={chat._id}
 								className={
-									'flex flex-col px-3 py-2 rounded-lg cursor-pointer hover:bg-teal-400 ' +
+									'flex items-center px-3 py-2 rounded-lg cursor-pointer hover:bg-teal-400 ' +
 									(selectedChat._id === chat._id
 										? 'bg-teal-500 text-white'
 										: 'bg-white text-black')
 								}
 								onClick={() => setSelectedChat(chat)}
 							>
-								<Text className="font-bold truncate">
-									{!chat.isGroupChat
-										? getSender(loggedUser, chat.users)
-										: chat.chatName}
-								</Text>
+								<Avatar
+									size="sm"
+									className="cursor-pointer"
+									name={chat.chatName}
+									src={
+										chat.isGroupChat
+											? {}
+											: getSenderFull(user, chat.users)
+													.pic
+									}
+								/>
+								<div className="flex flex-col ml-2 w-5/6">
+									<Text className="font-bold truncate whitespace-nowrap">
+										{!chat.isGroupChat
+											? getSender(loggedUser, chat.users)
+											: chat.chatName}
+									</Text>
 
-								{chat.latestMessage ? (
-									<Text className="text-sm truncate text-gray-500">
-										<b>
-											{chat.latestMessage.sender.name} :{' '}
-										</b>
-										{chat.latestMessage.content}
-									</Text>
-								) : (
-									<Text className="text-sm truncate text-gray-500">
-										No messages yet
-									</Text>
-								)}
+									{chat.latestMessage ? (
+										<Text className="text-sm truncate text-gray-500">
+											<b>
+												{chat.latestMessage.sender.name}{' '}
+												:{' '}
+											</b>
+											{chat.latestMessage.content}
+										</Text>
+									) : (
+										<Text className="text-sm truncate text-gray-500">
+											No messages yet
+										</Text>
+									)}
+								</div>
 							</div>
 						))}
 					</Stack>

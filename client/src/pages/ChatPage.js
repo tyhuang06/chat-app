@@ -1,5 +1,4 @@
-import { useEffect, useState } from 'react';
-import axiosDefault from '../axios';
+import { useState } from 'react';
 import SideDrawer from '../components/SideDrawer';
 import MyChats from '../components/MyChats';
 import ChatBox from '../components/ChatBox';
