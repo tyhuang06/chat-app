@@ -131,6 +131,8 @@ const SideDrawer = () => {
 
 	useEffect(() => {
 		handleSearch();
+
+		// eslint-disable-next-line
 	}, []);
 
 	return (

@@ -40,7 +40,9 @@ const MyChats = ({ fetchAgain }) => {
 	useEffect(() => {
 		setLoggedUser(JSON.parse(localStorage.getItem('userInfo')));
 		fetchChats();
-	}, [fetchAgain]);
+
+		// eslint-disable-next-line
+	}, [fetchAgain, chats]);
 
 	return (
 		<div
@@ -49,11 +51,12 @@ const MyChats = ({ fetchAgain }) => {
 				(selectedChat ? 'hidden' : 'flex mr-3')
 			}
 		>
-			<div className="flex w-full items-center justify-between text-2xl px-5 mb-2">
-				My Chats
+			<div className="flex flex-wrap items-center justify-between text-2xl ml-3 mr-2 mb-2">
+				Chats
 				<GroupChatModal>
 					<Button
 						d="flex"
+						size="sm"
 						rightIcon={<PlusIcon className="w-4 h-4" />}
 					>
 						New Group
@@ -67,18 +70,31 @@ const MyChats = ({ fetchAgain }) => {
 							<div
 								key={chat._id}
 								className={
-									'flex px-3 py-2 rounded-lg cursor-pointer hover:bg-teal-400 ' +
-									(selectedChat === chat
+									'flex flex-col px-3 py-2 rounded-lg cursor-pointer hover:bg-teal-400 ' +
+									(selectedChat._id === chat._id
 										? 'bg-teal-500 text-white'
-										: 'bg-slate-200 text-black')
+										: 'bg-white text-black')
 								}
 								onClick={() => setSelectedChat(chat)}
 							>
-								<Text>
+								<Text className="font-bold truncate">
 									{!chat.isGroupChat
 										? getSender(loggedUser, chat.users)
 										: chat.chatName}
 								</Text>
+
+								{chat.latestMessage ? (
+									<Text className="text-sm truncate text-gray-500">
+										<b>
+											{chat.latestMessage.sender.name} :{' '}
+										</b>
+										{chat.latestMessage.content}
+									</Text>
+								) : (
+									<Text className="text-sm truncate text-gray-500">
+										No messages yet
+									</Text>
+								)}
 							</div>
 						))}
 					</Stack>
