@@ -71,7 +71,8 @@ const MyChats = ({ fetchAgain }) => {
 								key={chat._id}
 								className={
 									'flex items-center px-3 py-2 rounded-lg cursor-pointer hover:bg-teal-400 ' +
-									(selectedChat._id === chat._id
+									(selectedChat &&
+									selectedChat._id === chat._id
 										? 'bg-teal-500 text-white'
 										: 'bg-white text-black')
 								}
