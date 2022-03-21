@@ -1,0 +1,6 @@
+{
+	"scripts": {
+		"start": "nodemon api/src/server.js",
+		"heroku-postbuild": "NPM_CONFIG_PRODUCTION=false yarn install --prefix client && yarn build --prefix client"
+	}
+}

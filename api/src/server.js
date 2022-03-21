@@ -8,6 +8,7 @@ import messageRoutes from './routes/messageRoutes.js';
 import { notFound, errorHandler } from './middleware/errorMiddleware.js';
 import { Server } from 'socket.io';
 import http from 'http';
+import path from 'path';
 
 const PORT = process.env.PORT || 8000;
 
@@ -30,14 +31,29 @@ app.use('/user', userRoutes);
 app.use('/chat', chatRoutes);
 app.use('/message', messageRoutes);
 
+// ----------- Deployment ---------------
+const __dirname1 = path.resolve();
+
+if (process.env.NODE_ENV === 'production') {
+	app.use(express.static(path.join(__dirname1, '../client/build')));
+
+	app.get('*', (req, res) => {
+		res.sendFile(
+			path.resolve(__dirname1, '..', 'client', 'build', 'index.html')
+		);
+	});
+} else {
+	app.get('/', (req, res) => {
+		res.send('running');
+	});
+}
+// ----------- Deployment ---------------
+
 // error messages
 app.use(notFound);
 app.use(errorHandler);
 
-app.get('/', (req, res) => {
-	res.send('running');
-});
-
+// socket
 const io = new Server(server, {
 	pingTimeout: 60000,
 	cors: {
@@ -46,8 +62,6 @@ const io = new Server(server, {
 });
 
 io.on('connection', (socket) => {
-	console.log('connected to socket.io');
-
 	socket.on('setup', (userData) => {
 		socket.join(userData._id);
 		socket.emit('connected');
