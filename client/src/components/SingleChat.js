@@ -178,18 +178,23 @@ const SingleChat = ({ fetchAgain, setFetchAgain }) => {
 		<>
 			{selectedChat ? (
 				<div className="flex flex-col h-full w-full">
-					<div className="flex w-full px-2 justify-between items-center">
+					<div className="flex px-2 max-w-full justify-between items-center overflow-hidden">
 						<IconButton
-							icon={<ArrowSmLeftIcon />}
+							icon={<ArrowSmLeftIcon className="w-8 h-8" />}
 							d={{ base: 'flex', md: 'none' }}
 							className="w-2 h-2"
 							onClick={() => setSelectedChat('')}
 						/>
 						{selectedChat.isGroupChat ? (
 							<>
-								<Text className="text-2xl">
-									{selectedChat.chatName.toUpperCase()}
-								</Text>
+								<div className="flex w-10/12 text-2xl">
+									<div className="truncate whitespace-nowrap">
+										{selectedChat.chatName.toUpperCase()}
+									</div>
+									<span className="ml-1">
+										({selectedChat.users.length})
+									</span>
+								</div>
 
 								<UpdateGroupChatModal
 									fetchAgain={fetchAgain}

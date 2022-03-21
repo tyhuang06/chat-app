@@ -6,6 +6,8 @@
 
 body {
 	font-family: 'Work Sans', sans-serif !important;
+	-ms-overflow-style: none; /* IE and Edge */
+	scrollbar-width: none; /* Firefox */
 }
 
 /* Hide scrollbar for Chrome, Safari and Opera */
@@ -22,14 +24,12 @@ body {
 	background: #555;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
-body {
-	-ms-overflow-style: none; /* IE and Edge */
-	scrollbar-width: none; /* Firefox */
-}
-
 .app {
 	@apply flex bg-cover min-h-screen;
 	background-image: url('./assets/robot_bg.jpeg');
 	font-family: 'Work Sans', sans-serif;
+}
+
+.chakra-button {
+	flex: none;
 }

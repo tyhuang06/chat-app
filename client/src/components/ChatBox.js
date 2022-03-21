@@ -8,7 +8,7 @@ const ChatBox = ({ fetchAgain, setFetchAgain }) => {
 	return (
 		<div
 			className={
-				'bg-white flex-col w-full md:2/3 rounded-lg py-3 px-2 md:flex ' +
+				'bg-white flex-col w-full max-w-full overflow-hidden md:2/3 rounded-lg py-3 px-2 md:flex ' +
 				(selectedChat ? 'flex' : 'hidden')
 			}
 		>
