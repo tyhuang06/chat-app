@@ -42,7 +42,7 @@ const MyChats = ({ fetchAgain }) => {
 		fetchChats();
 
 		// eslint-disable-next-line
-	}, [fetchAgain, chats]);
+	}, [fetchAgain]);
 
 	return (
 		<div
